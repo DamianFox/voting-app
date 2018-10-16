@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   render() {
@@ -15,9 +16,9 @@ class Header extends Component {
           </div>
           <div className="navbar-end">
             <div className="buttons">
-              <a className="button is-primary" href="#">
+              <Link to="#" className="button is-primary">
                 <strong>Sign in with Twitter</strong>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
