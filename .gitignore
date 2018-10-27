@@ -8,6 +8,7 @@
 
 # production
 /build
+/server/twitter.config.js
 
 # misc
 .DS_Store

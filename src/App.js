@@ -6,14 +6,9 @@ import SinglePoll from './Pages/SinglePoll'
 import NoMatch from './Pages/NoMatch'
 import Header from './Header'
 import Footer from './Footer'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChartBar, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 
 import './App.css';
 import 'bulma/css/bulma.css'
-
-library.add(faChartBar);
-library.add(faExternalLinkAlt);
 
 class App extends Component {
   render() {

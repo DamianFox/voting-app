@@ -25,15 +25,15 @@ class Homepage extends Component {
                   <figure>
                     <FontAwesomeIcon 
                       icon="external-link-alt"
-                      size="5x"
+                      size="4x"
                     />
                   </figure>
                 </div>
                 <div className="card-content">
                   <div className="content">
-                    <h3 className="subtitle is-3 has-text-centered">
-                      <Link to="/">Sign in</Link>
-                    </h3>
+                    <h4 className="subtitle is-4 has-text-centered">
+                      <Link className="is-primary" to="/">Sign in</Link>
+                    </h4>
                   </div>
                 </div>
               </div>
@@ -44,15 +44,15 @@ class Homepage extends Component {
                   <figure>
                     <FontAwesomeIcon 
                       icon="chart-bar" 
-                      size="5x"
+                      size="4x"
                     />
                   </figure>
                 </div>
                 <div className="card-content">
                   <div className="content">
-                    <h3 className="subtitle is-3 has-text-centered">
+                    <h4 className="subtitle is-4 has-text-centered">
                       <Link to="/polls">View charts</Link>
-                    </h3>
+                    </h4>
                   </div>
                 </div>
               </div>
