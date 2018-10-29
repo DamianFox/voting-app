@@ -11,11 +11,32 @@ class Header extends Component {
       this.state = { isAuthenticated: false, user: null, token: '' };
   }
 
+  componentDidMount() {
+    console.log("isAuthenticated", this.state.isAuthenticated);
+
+    const cachedUser = localStorage.getItem('user');
+
+    console.log("cachedUser", JSON.parse(cachedUser).user);
+
+    if (cachedUser !== null) {
+      this.setState({ 
+        user: JSON.parse(cachedUser).user,
+        isAuthenticated: JSON.parse(cachedUser).isAuthenticated,
+        token: JSON.parse(cachedUser).token
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem('user', JSON.stringify(this.state));
+  }
+
   onSuccess = (response) => {
     const token = response.headers.get('x-auth-token');
     response.json().then(user => {
       if (token) {
         this.setState({isAuthenticated: true, user: user, token: token});
+        console.log("isAuthenticated", this.state.isAuthenticated);
       }
     });
   };
