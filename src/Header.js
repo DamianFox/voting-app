@@ -5,18 +5,14 @@ import { Link } from 'react-router-dom';
 import TwitterLogin from 'react-twitter-auth';
 
 class Header extends Component {
-  constructor() {
-      super();
+  constructor(props) {
+      super(props);
 
       this.state = { isAuthenticated: false, user: null, token: '' };
   }
 
   componentDidMount() {
-    console.log("isAuthenticated", this.state.isAuthenticated);
-
     const cachedUser = localStorage.getItem('user');
-
-    console.log("cachedUser", JSON.parse(cachedUser).user);
 
     if (cachedUser !== null) {
       this.setState({ 
@@ -36,7 +32,7 @@ class Header extends Component {
     response.json().then(user => {
       if (token) {
         this.setState({isAuthenticated: true, user: user, token: token});
-        console.log("isAuthenticated", this.state.isAuthenticated);
+        this.props.handlerFromParent(this.state);
       }
     });
   };
@@ -46,18 +42,17 @@ class Header extends Component {
   };
 
   logout = () => {
-    this.setState({isAuthenticated: false, token: '', user: null})
+    this.setState({isAuthenticated: false, token: '', user: null});
+    localStorage.removeItem('user');
+    this.props.handlerFromParent(this.state);
   };
 
   render() {
     let content = !!this.state.isAuthenticated ?
       (
         <div>
-          <p>Authenticated</p>
           <div>
-            {this.state.user.email}
-          </div>
-          <div>
+            <Link className="button is-primary" to="/new-poll">New Poll</Link>
             <button onClick={this.logout} className="button" >
               Log out
             </button>
@@ -78,7 +73,7 @@ class Header extends Component {
         <div className="container">
           <div className="navbar-brand">
             <h1 className="title is-4">
-              <Link to="#" className="navbar-item">
+              <Link to="/" className="navbar-item">
                 <strong>Voting App</strong>
               </Link>
             </h1>
