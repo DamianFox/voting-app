@@ -19,26 +19,7 @@ class Homepage extends Component {
         <div className="container">
         <hr/>
           <div className="columns">
-            <div className="column is-half">
-              <div className="card large">
-                <div className="card-content has-text-centered">
-                  <figure>
-                    <FontAwesomeIcon 
-                      icon="external-link-alt"
-                      size="4x"
-                    />
-                  </figure>
-                </div>
-                <div className="card-content">
-                  <div className="content">
-                    <h4 className="subtitle is-4 has-text-centered">
-                      <Link className="is-primary" to="/">Sign in</Link>
-                    </h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="column is-half">
+            <div className="column">
               <div className="card large">
                 <div className="card-content has-text-centered">
                   <figure>

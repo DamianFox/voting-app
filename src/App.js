@@ -67,7 +67,6 @@ export default App;
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    console.log("rest.props.isAuthenticated", rest.props.isAuthenticated),
     rest.props.isAuthenticated === true
       ? <Component {...props} />
       : <Redirect to={{

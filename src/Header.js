@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
 import { Link } from 'react-router-dom';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TwitterLogin from 'react-twitter-auth';
 
 class Header extends Component {
