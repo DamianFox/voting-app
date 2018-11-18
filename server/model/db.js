@@ -44,3 +44,4 @@ process.on('SIGTERM', () => {
 
 // SCHEMAS & MODELS
 require('./user.model');
+require('./poll.model');
