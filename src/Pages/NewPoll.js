@@ -11,25 +11,32 @@ class NewPoll extends Component {
   						counter: 2
   					};
 
-    this.handleChange = this.handleChange.bind(this);
+  	this.setField = this.setField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addItem = this.addItem.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({question: e.target.value});
-  }
-
   handleSubmit(e) {
     e.preventDefault();
+
+  }
+
+  setField(e) {
+		this.setState({[e.target.name]: e.target.value});
   }
 
   addItem() {
   	let newItem = (<div key={this.state.counter} className="field">
                     <div className="control">
-                    	<input className="input" type="text" placeholder="Item" />
+                    	<input 
+                    		className="input" 
+                    		name={"item-"+this.state.counter}
+                    		onChange={this.setField}
+                    		type="text" 
+                    		placeholder="Item" />
                     </div>
                   </div>);
+  	
   	this.setState((prevState) => {
   	  return {
   	    items: prevState.items.concat(newItem),
@@ -46,13 +53,15 @@ class NewPoll extends Component {
           	<div className="column is-6 is-offset-3">
               <h3 className="title has-text-grey">New poll</h3>
               <div className="box">
-                <form onSubmit={this.handleSubmit}>
+                <form id="newPoll"
+                	onSubmit={this.handleSubmit}>
                   <div className="field">
                     <div className="control">
                       <input 
-                      	value={this.state.question} 
-                      	onChange={this.handleChange}
+                      	value={this.state.question}
+                      	name="question" 
                       	className="input is-large" 
+                      	onChange={this.setField}
                       	type="text" 
                       	placeholder="Your question" 
                       	autoFocus="" />
@@ -60,12 +69,22 @@ class NewPoll extends Component {
                   </div>
                   	<div key={0} className="field">
                   	  <div className="control">
-                  	  	<input className="input" type="text" placeholder="Item" />
+                  	  	<input 
+                  	  		className="input" 
+                  	  		type="text" 
+                  	  		name="item-0"
+                  	  		onChange={this.setField}
+                  	  		placeholder="Item" />
                   	  </div>
                   	</div>
                   	<div key={1} className="field">
                   	  <div className="control">
-                  	  	<input className="input" type="text" placeholder="Item" />
+                  	  	<input 
+                  	  		className="input" 
+                  	  		type="text" 
+                  	  		name="item-1"
+                  	  		onChange={this.setField}
+                  	  		placeholder="Item" />
                   	  </div>
                   	</div>
                   	{this.state.items}
