@@ -1,37 +1,28 @@
 import React, { Component } from 'react';
-import 'bulma/css/bulma.css'
 import { Link } from 'react-router-dom';
 import TwitterLogin from 'react-twitter-auth';
+import { connect } from 'react-redux';
+import { loginSuccess, logout } from './redux/actions/actions';
+
+import 'bulma/css/bulma.css';
 
 class Header extends Component {
+
   constructor(props) {
-      super(props);
+    super(props);
 
-      this.state = { isAuthenticated: false, user: null, token: '' };
-  }
-
-  componentDidMount() {
-    const cachedUser = localStorage.getItem('user');
-
-    if (cachedUser !== null) {
-      this.setState({ 
-        user: JSON.parse(cachedUser).user,
-        isAuthenticated: JSON.parse(cachedUser).isAuthenticated,
-        token: JSON.parse(cachedUser).token
-      });
-    }
-  }
-
-  componentDidUpdate() {
-    localStorage.setItem('user', JSON.stringify(this.state));
+    // console.log("Props in Header", this.props);
+    
+    this.onSuccess = this.onSuccess.bind(this);
+    this.onFailed = this.onFailed.bind(this);
   }
 
   onSuccess = (response) => {
     const token = response.headers.get('x-auth-token');
     response.json().then(user => {
+      // console.log("user", user);
       if (token) {
-        this.setState({isAuthenticated: true, user: user, token: token});
-        this.props.handlerFromParent(this.state);
+        this.props.loginSuccess(user, token);
       }
     });
   };
@@ -41,13 +32,11 @@ class Header extends Component {
   };
 
   logout = () => {
-    this.setState({isAuthenticated: false, token: '', user: null});
-    localStorage.removeItem('user');
-    this.props.handlerFromParent(this.state);
+    this.props.logout();
   };
 
   render() {
-    let content = !!this.state.isAuthenticated ?
+    let content = !!this.props.isAuthenticated ?
       (
         <div>
           <div>
@@ -88,4 +77,23 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  // console.log("state in mapStateToProps", state);
+  return {
+    token: state.users.token,
+    user: state.users.user,
+    isAuthenticated: state.users.isAuthenticated
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      loginSuccess: (user, token) => dispatch(loginSuccess(user, token)),
+      logout: () => dispatch(logout())
+  };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header);
