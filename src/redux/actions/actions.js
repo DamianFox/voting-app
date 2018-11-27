@@ -21,7 +21,8 @@ export function addPoll (newPoll) {
         let poll = res.data
         dispatch({type:'ADD_POLL', poll})
     }).catch((err) => {
-        console.log(err)
+    		let error = err.response.status;
+        dispatch({type:'ADD_POLL_ERROR', error});
     })
   }
 }
