@@ -1,20 +1,9 @@
 var mongoose = require('mongoose');
 
-var pollSchema = new mongoose.Schema({
-  question: {
-    type: String, 
-    required: true
-  },
-  answers: { 
-    type: [answerSchema],
-    required: true
-  }
-});
-
-var answerSchema = new mongoose.Schema({
+const AnswerSchema = new mongoose.Schema({
   answer: {
     type: String,
-    unique: true,
+    unique: false
   },
   votes: {
     type: Number,
@@ -22,4 +11,13 @@ var answerSchema = new mongoose.Schema({
   }
 });
 
-mongoose.model('Poll', pollSchema);
+const PollSchema = new mongoose.Schema({
+  question: {
+    type: String, 
+    required: true,
+    unique: true
+  },
+  answers: [AnswerSchema]
+});
+
+mongoose.model('Poll', PollSchema);
