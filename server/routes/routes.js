@@ -8,12 +8,11 @@ var passport = require('passport'),
 
 var passportConfig = require('../passport');
 
-var ctrlUsers = require('../controller/user.controller.js');
+var ctrlPoll = require('../controller/poll.controller.js');
 
 passportConfig();
 
 var createToken = function(auth) {
-  console.log("createToken");
   return jwt.sign({
     id: auth.id
   }, 'my-secret',
@@ -23,23 +22,21 @@ var createToken = function(auth) {
 };
 
 var generateToken = (req, res, next) => {
-  console.log("generateToken");
   req.token = createToken(req.auth);
   return next();
 };
 
 var sendToken = (req, res) => {
-  console.log("sendToken ->", req.token);
   res.setHeader('x-auth-token', req.token);
   return res.status(200).send(JSON.stringify(req.user));
 };
 
 router.route('/health-check').get(function(req, res) {
   res.status(200);
-  res.send('Hello World');
+  res.send('Health Check');
 });
 
-// Routes
+// User Routes
 router
   .route('/auth/twitter/reverse')
   .post(function(req, res) {
@@ -98,5 +95,17 @@ router
       return next();
     }, generateToken, sendToken);
 
-module.exports = router;
+// Poll Routes
+router
+  .route('/polls')
+  .get(ctrlPoll.pollGetAll);
 
+router
+  .route('/poll/new')
+  .post(ctrlPoll.pollAddOne);
+
+router
+  .route('/polls/:pID')
+  .get(ctrlPoll.pollGetOne);
+
+module.exports = router;
