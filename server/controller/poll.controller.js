@@ -27,8 +27,7 @@ module.exports.pollGetAll = (req, res) => {
 
 module.exports.pollGetOne = (req, res) => {
   var id = req.params.pID;
-
-  // console.log('req.params', req.params);
+  
   console.log('GET pollId', id);
 
   Poll
