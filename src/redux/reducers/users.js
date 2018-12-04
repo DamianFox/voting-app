@@ -8,7 +8,7 @@ export default (state=initialState, action) => {
   switch (action.type) {
     case 'LOGOUT':
       localStorage.removeItem('user');
-      return Object.assign({}, state, {token: null, isAuthenticated: false, user: null});
+      return initialState;
     case 'LOGIN_ERROR':
       return Object.assign({}, state, {token: null, isAuthenticated: false, user: null});
     case 'LOGIN_SUCCESS':

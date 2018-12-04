@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import TwitterLogin from 'react-twitter-auth';
 import { connect } from 'react-redux';
 import { loginSuccess, logout } from './redux/actions/actions';
+// import { store } from './redux/store';
+
 
 import 'bulma/css/bulma.css';
 
@@ -10,9 +12,9 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
-
-    // console.log("Props in Header", this.props);
     
+    // console.log("store.getState()", store.getState());
+
     this.onSuccess = this.onSuccess.bind(this);
     this.onFailed = this.onFailed.bind(this);
   }
@@ -20,7 +22,6 @@ class Header extends Component {
   onSuccess = (response) => {
     const token = response.headers.get('x-auth-token');
     response.json().then(user => {
-      // console.log("user", user);
       if (token) {
         this.props.loginSuccess(user, token);
       }
@@ -78,7 +79,6 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("state in mapStateToProps", state);
   return {
     token: state.users.token,
     user: state.users.user,
