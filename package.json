@@ -32,7 +32,8 @@
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
-    "shortid": "^2.2.14"
+    "shortid": "^2.2.14",
+    "victory": "^31.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
