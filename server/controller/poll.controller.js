@@ -88,9 +88,9 @@ module.exports.pollAddOne = (req, res) => {
     });
 };
 
-module.exports.pollIncreaseVote = function(req, res) {
-  var pollId = req.params.pollId;
-  var answerId = req.params.answerId;
+module.exports.pollAddVote = function(req, res) {
+  var pollId = req.params.pID;
+  var answerId = req.params.aID;
   console.log('PUT for pollId ' + pollId);
 
   Poll
