@@ -54,55 +54,55 @@ module.exports.requestTokenUrl = (req, res) => {
 	});
 };
 
-// module.exports.authenticateUser = (req, res, next) => {
-//   console.log("authenticateUser");
-//   request.post({
-//     url: 'https://api.twitter.com/oauth/access_token?oauth_verifier',
-//     oauth: {
-//       consumer_key: twitterConfig.consumerKey,
-//       consumer_secret: twitterConfig.consumerSecret,
-//       token: req.query.oauth_token
-//     },
-//     form: { oauth_verifier: req.query.oauth_verifier }
-//   }, function (err, r, body) {
-//     console.log("Before if (err): body ->",  body);
-//     if (err) {
-//       return res.send(500, { message: err.message });
-//     }
-//     console.log("After if (err)");
-//     const bodyString = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
-//     const parsedBody = JSON.parse(bodyString);
+module.exports.authenticateUser = (req, res, next) => {
+  console.log("authenticateUser");
+  request.post({
+    url: 'https://api.twitter.com/oauth/access_token?oauth_verifier',
+    oauth: {
+      consumer_key: twitterConfig.consumerKey,
+      consumer_secret: twitterConfig.consumerSecret,
+      token: req.query.oauth_token
+    },
+    form: { oauth_verifier: req.query.oauth_verifier }
+  }, function (err, r, body) {
+    console.log("Before if (err): body ->",  body);
+    if (err) {
+      return res.send(500, { message: err.message });
+    }
+    console.log("After if (err)");
+    const bodyString = '{ "' + body.replace(/&/g, '", "').replace(/=/g, '": "') + '"}';
+    const parsedBody = JSON.parse(bodyString);
 
-//     req.body['oauth_token'] = parsedBody.oauth_token;
-//     req.body['oauth_token_secret'] = parsedBody.oauth_token_secret;
-//     req.body['user_id'] = parsedBody.user_id;
+    req.body['oauth_token'] = parsedBody.oauth_token;
+    req.body['oauth_token_secret'] = parsedBody.oauth_token_secret;
+    req.body['user_id'] = parsedBody.user_id;
 
-//     // console.log("parsedBody", parsedBody);
-//     console.log("Just before next()");
-//     next();
-//   })
-// }, passport.authenticate('twitter', {session: false}), function(req, res, next) {
-//     console.log("Passport authenticate");
-//     if (!req.user) {
-//       return res.send(401, 'User Not Authenticated');
-//     }
+    // console.log("parsedBody", parsedBody);
+    console.log("Just before next()");
+    next();
+  })
+}, passport.authenticate('twitter', {session: false}), function(req, res, next) {
+    console.log("Passport authenticate");
+    if (!req.user) {
+      return res.send(401, 'User Not Authenticated');
+    }
 
-//     // prepare token for API
-//     req.auth = {
-//       id: req.user.id
-//     };
+    // prepare token for API
+    req.auth = {
+      id: req.user.id
+    };
 
-//     next();
-// }, (generateToken, sendToken);
+    next();
+}, (generateToken, sendToken);
 
-// token handling middleware
-// var authenticate = expressJwt({
-//   secret: 'my-secret',
-//   requestProperty: 'auth',
-//   getToken: function(req) {
-//     if (req.headers['x-auth-token']) {
-//       return req.headers['x-auth-token'];
-//     }
-//     return null;
-//   }
-// });
+token handling middleware
+var authenticate = expressJwt({
+  secret: 'my-secret',
+  requestProperty: 'auth',
+  getToken: function(req) {
+    if (req.headers['x-auth-token']) {
+      return req.headers['x-auth-token'];
+    }
+    return null;
+  }
+});

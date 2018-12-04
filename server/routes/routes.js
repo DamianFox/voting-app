@@ -108,4 +108,8 @@ router
   .route('/polls/:pID')
   .get(ctrlPoll.pollGetOne);
 
+router
+  .route('/polls/:pID/vote/:aID')
+  .post(ctrlPoll.pollAddVote);
+
 module.exports = router;
