@@ -27,6 +27,26 @@ export function addPoll (newPoll) {
   }
 }
 
+export function getOnePoll (pollID) {
+  return (dispatch) => {
+    axios.get(`${url}polls/${pollID}`)
+    .then((res) => {
+        let poll = res.data
+        dispatch({type: 'VIEW_POLL', poll})
+    }).catch((err) => console.log(err))
+	}
+}
+
+export function addVote (pollID, answerID) {
+  return (dispatch) => {
+    axios.post(`${url}polls/${pollID}/vote/${answerID}`)
+    .then((res) => {
+        dispatch({type: 'ADD_VOTE', res})
+    }).catch((err) => console.log(err))
+	}
+
+}
+
 export const loginSuccess = (user, token) => ({
     type: 'LOGIN_SUCCESS',
     payload: {user, token}
