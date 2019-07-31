@@ -36,7 +36,8 @@
     "victory": "^31.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start-client": "react-scripts start",
+    "start": "npm run server & npm run start-client",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
