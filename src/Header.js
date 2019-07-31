@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import TwitterLogin from 'react-twitter-auth';
 import { connect } from 'react-redux';
 import { loginSuccess, logout } from './redux/actions/actions';
-// import { store } from './redux/store';
-
 
 import 'bulma/css/bulma.css';
 
@@ -12,8 +10,6 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
-    
-    // console.log("store.getState()", store.getState());
 
     this.onSuccess = this.onSuccess.bind(this);
     this.onFailed = this.onFailed.bind(this);

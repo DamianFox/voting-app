@@ -5,6 +5,6 @@ import { routerReducer } from 'react-router-redux';
 
 export default combineReducers({
 	users,
-  polls,
-  router: routerReducer
+  	polls,
+  	router: routerReducer
 });

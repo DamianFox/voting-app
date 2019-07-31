@@ -3,14 +3,17 @@ import { connect } from 'react-redux';
 import shortid from 'shortid';
 import { getOnePoll, addVote } from '../redux/actions/actions';
 import { VictoryPie, VictoryTooltip } from "victory";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 import 'bulma/css/bulma.css'
+import '../App.css'
 
 class SinglePoll extends Component {
 
 	titleStyle = {
 		paddingTop: '40px',
-	  paddingBottom: '60px'
+	  paddingBottom: '20px'
 	};
 
 	constructor(props) {
@@ -72,7 +75,7 @@ class SinglePoll extends Component {
   		answers.map((ans, index) =>(<p key={shortid.generate()}>
   			<label htmlFor={`label${index}`} className="radio">
 			    <input
-			      name="group1"
+			      name={`radio${index}`}
 			      type="radio"
 			      value={ans._id}
 			      id={`label${index}`}
@@ -112,7 +115,14 @@ class SinglePoll extends Component {
         <div className="hero-body">
           <div className="container">
             <div className="column is-8 is-offset-2">
-        			<h2 className="title has-text-centered" style={this.titleStyle}>{question}</h2>
+            	<div>
+	        			<h2 className="title has-text-centered" style={this.titleStyle}>
+	        				{question}
+	        				<Link to={`/polls/${this.props.match.params.id}/edit`}>
+	        					<FontAwesomeIcon icon="pen" />
+        					</Link>
+	      				</h2>
+    					</div>
         			{this.state.notification}
         			<div className="level">
 	        			<div className="level-left" style={{margin: '0 auto'}}>

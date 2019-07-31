@@ -4,6 +4,11 @@
   padding: 1.25rem 0;
 }
 
+.title .svg-inline--fa.fa-w-16 {
+	width: 0.5em;
+	margin-left: 0.35em;
+}
+
 footer {
   padding: 3rem 1.5rem 3.5rem !important;
 }
