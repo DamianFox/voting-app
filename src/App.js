@@ -43,19 +43,21 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.users.token,
-    user: state.users.user,
-    isAuthenticated: state.users.isAuthenticated
-  }
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     token: state.users.token,
+//     user: state.users.user,
+//     isAuthenticated: state.users.isAuthenticated
+//   }
+// };
+
+const mapStateToProps = ({users}) => ({users});
 
 export default connect(mapStateToProps)(App);
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    rest.props.isAuthenticated === true
+    rest.props.users.isAuthenticated === true
       ? <Component {...props} />
       : <Redirect to={{
           pathname: '/',

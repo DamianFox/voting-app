@@ -33,7 +33,7 @@ class Header extends Component {
   };
 
   render() {
-    let content = !!this.props.isAuthenticated ?
+    let content = this.props.users.isAuthenticated === true ?
       (
         <div>
           <div>
@@ -74,22 +74,9 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.users.token,
-    user: state.users.user,
-    isAuthenticated: state.users.isAuthenticated
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-      loginSuccess: (user, token) => dispatch(loginSuccess(user, token)),
-      logout: () => dispatch(logout())
-  };
-};
+const mapStateToProps = ({users}) => ({users});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Header);
+  mapStateToProps,
+  {loginSuccess,
+  logout})(Header);

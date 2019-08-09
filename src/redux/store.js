@@ -14,6 +14,5 @@ const persistedState = loadState();
 // Build the middleware for intercepting and dispatching navigation actions
 //const myRouterMiddleware = routerMiddleware(history);
 
-// export const store = createStore(
-//   reducer, composeWithDevTools(applyMiddleware(thunk)));
+// export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 export const store = createStore(reducer, persistedState, composeWithDevTools(applyMiddleware(thunk)));

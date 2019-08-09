@@ -191,22 +191,9 @@ class NewPoll extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.users.token,
-    user: state.users.user,
-    isAuthenticated: state.users.isAuthenticated,
-    error: state.polls.error
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-      addPoll: (newPoll) => dispatch(addPoll(newPoll))
-  };
-};
+const mapStateToProps = ({users}) => ({users});
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    {addPoll}
 )(NewPoll);

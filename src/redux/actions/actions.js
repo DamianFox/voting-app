@@ -47,10 +47,11 @@ export function addVote (pollID, answerID) {
 
 }
 
-export const loginSuccess = (user, token) => ({
-    type: 'LOGIN_SUCCESS',
-    payload: {user, token}
-})
+export const loginSuccess = (user, token) => {
+  return (dispatch) => {
+    dispatch({type: 'LOGIN_SUCCESS', payload: {user, token}})
+  }
+}
 
 export function logout () {
   return (dispatch) => {
