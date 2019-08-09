@@ -7,6 +7,10 @@ import PollsList from './PollsList';
 
 class Polls extends Component {
 
+  componentDidMount(){
+    this.props.loadPolls();
+  }
+
   render() {
   	const polls = this.props.polls;
     
@@ -26,22 +30,8 @@ class Polls extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.users.token,
-    user: state.users.user,
-    isAuthenticated: state.users.isAuthenticated,
-    polls: state.polls.polls
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-      loadPolls: () => dispatch(loadPolls())
-  };
-};
+const mapStateToProps = ({polls}) => ({polls});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Polls);
+  mapStateToProps,
+  {loadPolls})(Polls);
