@@ -21,17 +21,18 @@ class SinglePoll extends Component {
     
     this.state = {
       radio: '',
-      notification: ''
+      notification: '',
+      pollId: props.match.params.id
     };
 
     this.handleRadioChange = this.handleRadioChange.bind(this);
     this.hideMessage = this.hideMessage.bind(this);
     this.addVote = this.addVote.bind(this);
+    this.props.getOnePoll(this.state.pollId);
   }
 
 	componentDidMount(){
- 		const pollId = this.props.match.params.id;
-		this.props.getOnePoll(pollId);
+		this.props.getOnePoll(this.state.pollId);
 	}
 
 	hideMessage() {
@@ -66,7 +67,9 @@ class SinglePoll extends Component {
 	}
 
   render() {
-  	const { question, answers } = this.props._poll;
+    const answers = this.props.polls !== [] ? this.props.polls.poll.answers : [];
+    const question = this.props.polls !== [] ? this.props.polls.poll.question : "";
+    
   	let newAnswers = [];
   	let noData = true;
   	let chart = '';
@@ -147,24 +150,9 @@ class SinglePoll extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    token: state.users.token,
-    user: state.users.user,
-    isAuthenticated: state.users.isAuthenticated,
-    _poll: state.polls.poll,
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getOnePoll: (pollId) => dispatch(getOnePoll(pollId)),
-    addVote: (pollId, answerID) => dispatch(addVote(pollId, answerID))
-  };
-};
+const mapStateToProps = ({users, polls}) => ({users, polls});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SinglePoll);
-
+  mapStateToProps,
+  {getOnePoll,
+  addVote})(SinglePoll);

@@ -13,7 +13,6 @@ export default (state=initialState, action) => {
       }
     case 'VIEW_POLL':
       return {
-        ...state,
         poll: action.poll
       }
     case 'ADD_POLL':
